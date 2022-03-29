@@ -1,6 +1,14 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h1>Our Finches:</h1>
+    <form>
+        <div>
+            <input type="text" name="name" placeholder="name"/>
+            <input type="submit" value="Search"/>
+        </div>
+        <a href="{% url 'finch_list' %}">Clear Search</a>
+        <a href="{% url 'cat_create' %}">Add Finch</a>
+    </form>
+    <h1>{{header}}</h1>
     {% for finch in finches %}
     <h3>Name: {{finch.name}}</h3>
     <h3>Age: {{finch.age}}</h3>
