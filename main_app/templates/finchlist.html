@@ -6,9 +6,11 @@
             <input type="submit" value="Search"/>
         </div>
         <a href="{% url 'finch_list' %}">Clear Search</a>
-        <a href="{% url 'cat_create' %}">Add Finch</a>
+        <a href="{% url 'finch_create' %}">Add Finch</a>
     </form>
     <h1>{{header}}</h1>
+    <img src="{{finch.img}}" alt="{{finch.name}}">
+    <a href="{% url 'finch_detail' finch.pk %}">
     {% for finch in finches %}
     <h3>Name: {{finch.name}}</h3>
     <h3>Age: {{finch.age}}</h3>

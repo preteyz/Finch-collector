@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView
+from django.views.generic import DetailView
 from django.views import View #View class to handle requests
 from django.http import HttpResponse 
 from .models import Finch
@@ -58,3 +59,8 @@ class Finch_Create(CreateView):
     fields = ['name', 'img', 'age', 'gender']
     template_name = "finch_create.html"
     success_url = "/finches/"
+
+
+class Finch_Detail(DetailView):
+    model = Finch
+    template_name = "finch_detail.html"
