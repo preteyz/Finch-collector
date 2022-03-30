@@ -60,7 +60,6 @@ class Finch_Create(CreateView):
     template_name = "finch_create.html"
     success_url = "/finches/"
 
-
 class Finch_Detail(DetailView):
     model = Finch
-    template_name = "finch_detail.html"
+    template_name= "finch_detail.html"

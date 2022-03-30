@@ -9,9 +9,11 @@
         <a href="{% url 'finch_create' %}">Add Finch</a>
     </form>
     <h1>{{header}}</h1>
+    
+    
+    {% for finch in finches %}
     <img src="{{finch.img}}" alt="{{finch.name}}">
     <a href="{% url 'finch_detail' finch.pk %}">
-    {% for finch in finches %}
     <h3>Name: {{finch.name}}</h3>
     <h3>Age: {{finch.age}}</h3>
     <h3>Gender: {{finch.gender}}</h3>
