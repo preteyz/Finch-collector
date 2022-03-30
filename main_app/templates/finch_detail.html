@@ -12,8 +12,8 @@
     <h3>Gender: {{finch.gender}}</h3>
 </div>
 <div>
-    <a href=""></a>
-    <a href=""></a>
+    <a href="{% url 'finch_update' finch.pk %}">Update</a>
+    <a href="{% url 'finch_delete' finch.pk %}">Delete</a>
 </div>
 
 {% endblock %}
