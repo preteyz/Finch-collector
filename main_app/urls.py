@@ -15,6 +15,8 @@ urlpatterns = [
     path('finchtoys/create/', views.Finch_Toy_Create.as_view(), name='finchtoys_create'),
     path('finchtoys/<int:pk>/update/', views.Finch_Toy_Update.as_view(), name='finchtoys_update'),
     path('finchtoys/<int:pk>/delete/', views.Finch_Toy_Delete.as_view(), name='finchtoys_delete'),
-
+    path('login/', views.login_view, name='login'),
+    path('logout/', views.logout_view, name='logout'),
+    path('signup/', views.signup_view, name='signup'),
 
 ] 
