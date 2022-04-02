@@ -1,9 +1,24 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h1>Our Finches:</h1>
+    <form>
+        <div>
+            <input type="text" name="name" placeholder="name"/>
+            <input type="submit" value="Search"/>
+        </div>
+        <a href="{% url 'finch_list' %}">Clear Search</a>
+        <a href="{% url 'finch_create' %}">Add Finch</a>
+    </form>
+    <h1>{{header}}</h1>
+    
+    
     {% for finch in finches %}
+    <img src="{{finch.img}}" alt="{{finch.name}}">
+    <a href="{% url 'finch_detail' finch.pk %}">
     <h3>Name: {{finch.name}}</h3>
     <h3>Age: {{finch.age}}</h3>
     <h3>Gender: {{finch.gender}}</h3>
+    <p>Adopted by:
+        <a href="/user/{{ fince.user.username }}">{{ finch.user.username }}</a>
+    </p>
     {% endfor %}
 {% endblock %}

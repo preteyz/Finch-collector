@@ -1,0 +1,28 @@
+{% extends 'base.html' %} 
+
+{% block content %}
+
+<div>
+  <img src="{{finch.img}}" alt="{{finch.name}}" />
+</div>
+    <h1>{{finch.name}}</h1>
+</div>
+<div>
+    <h3>Age: {{finch.age}}</h3>
+    <h3>Gender: {{finch.gender}}</h3>
+    <p>Adopted by:
+        <a href="/user/{{ finch.user.username }}">{{ finch.user.username }}</a>
+    </p>
+    <h3>Toys owned:</h3>
+    {% for finchtoy in finch.finchtoys.all %}
+        <div>{{ finchtoy.name }}</div>
+    {% empty %}
+        <div> Finch has no toys 🙁</div>
+    {% endfor %}
+</div>
+<div>
+    <a href="{% url 'finch_update' finch.pk %}">Update</a>
+    <a href="{% url 'finch_delete' finch.pk %}">Delete</a>
+</div>
+
+{% endblock %}

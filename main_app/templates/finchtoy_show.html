@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Finch Toy Details</h1>
+
+<div>
+    <div>
+        <span>{{ finchtoy.finche }}</span>
+        <p>Color: {{ finchtoy.finchor }}</p>
+        <p>Owned by:</p>
+        {% for cat in finchtoy.finch_set.all %}
+            <p>{{finch.name}}</p>
+        {% empty %}
+            <p>Nobody Has This Toy</p>
+        {% endfor %}
+    </div>
+    
+    <div>
+        <a href="{% url 'finchtoys_update' finchtoy.id %}">Edit</a>
+        <a href="{% url 'finchtoys_delete' finchtoy.id %}">Delete</a>
+    </div>
+</div>
+{% endblock %}
