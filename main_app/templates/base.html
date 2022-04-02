@@ -10,6 +10,17 @@
     <title>{% block title%}{% endblock %}</title>
 </head>
 <body>
+    <nav>
+        <a href="/admin">Admin</a>
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+        <a href="/finches">Finches</a>
+        <a href="{% url 'finch_create' %}">Add a Finch</a>
+        <a href="/finchtoys">Finch Toys |</a>
+        <a href="{% url 'finch_create' %}">Add a Finch |</a>
+        <a href="{% url 'finchtoys_create' %}">Add a FinchToy |</a>
+    </nav>
+
     {% block content %}
 
     {% endblock %}

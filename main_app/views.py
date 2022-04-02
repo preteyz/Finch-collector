@@ -1,10 +1,11 @@
+from nis import cat
 from django.shortcuts import render
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import DetailView
 from django.views import View #View class to handle requests
-from django.http import HttpResponse 
-from .models import Finch
+from django.http import HttpResponse , HttpResponseRedirect
+from .models import Finch, FinchToy
 from django.urls import reverse
 
 
@@ -52,17 +53,26 @@ class Finch_List(TemplateView):
             context["header"] = f"Searching for {name}"
         else:
             context["finches"] = Finch.objects.all()
-            context["header"] = "Our Cats"
+            context["header"] = "Our Finches"
         return context
 
 
 class Finch_Create(CreateView):
     model = Finch
-    fields = ['name', 'img', 'age', 'gender']
+    fields = ['name', 'img', 'age', 'gender', 'user', 'finchtoys']
     template_name = "finch_create.html"
     # success_url = "/finches/"
-    def get_success_url(self) -> str:
-        return reverse('cat_detail', kwargs={'pk': self.object.pk})
+    # def get_success_url(self) -> str:
+    #     return reverse('finch_detail', kwargs={'pk': self.object.pk})
+    # model = Finch
+    # fields = '__all__'
+    # success_url = '/finches'
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.user = self.request.user
+        self.object.save()
+        return HttpResponseRedirect('/finches')
 
 class Finch_Detail(DetailView):
     model = Finch
@@ -70,13 +80,45 @@ class Finch_Detail(DetailView):
 
 class Finch_Update(UpdateView):
     model = Finch
-    fields = ['name', 'img', 'age', 'gender']
+    fields = ['name', 'img', 'age', 'gender', 'user', 'finchtoys']
     template_name = "finch_update.html"
     # success_url = "/finches"
     def get_success_url(self) -> str:
-        return reverse('cat_detail', kwargs={'pk': self.object.pk})
+        return reverse('finch_detail', kwargs={'pk': self.object.pk})
 
 class Finch_Delete(DeleteView):
     model = Finch
     template_name = "finch_delete_confirmation.html"
     success_url = "/finches"
+
+def profile(request, username):
+    user = User.objects.get(username=username)
+    finches = Finch.objects.filter(user=user)
+    return render(request, 'profile.html', {'username': username,'finches': finches})
+
+#Finch Toys
+
+def finchtoys_index(request):
+    finchtoys = FinchToy.objects.all()
+    return render(request, 'finchtoy_index.html', {'finchtoys': finchtoys})
+
+def finchtoys_show(request, finchtoy_id):
+    finchtoy = FinchToy.objects.get(id=finchtoy_id)
+    return render(request, 'finchtoy_show.html', {'finchtoy': finchtoy})
+
+class Finch_Toy_Create(CreateView):
+    model = FinchToy
+    fields = '__all__'
+    template_name = "finchtoy_form.html"
+    success_url = '/finchtoys'
+
+class Finch_Toy_Update(UpdateView):
+    model = FinchToy
+    fields = ['name', 'color']
+    template_name = "finchtoy_update.html"
+    success_url = '/finchtoys'
+
+class Finch_Toy_Delete(DeleteView):
+    model = FinchToy
+    template_name = "finchtoy_confirm_delete.html"
+    success_url = '/finchtoys'

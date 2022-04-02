@@ -17,5 +17,8 @@
     <h3>Name: {{finch.name}}</h3>
     <h3>Age: {{finch.age}}</h3>
     <h3>Gender: {{finch.gender}}</h3>
+    <p>Adopted by:
+        <a href="/user/{{ fince.user.username }}">{{ finch.user.username }}</a>
+    </p>
     {% endfor %}
 {% endblock %}
